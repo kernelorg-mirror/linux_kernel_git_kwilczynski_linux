@@ -71,15 +71,15 @@ What:		/sys/bus/pci/rescan
 Date:		January 2009
 Contact:	Linux PCI developers <linux-pci@vger.kernel.org>
 Description:
-		Writing a non-zero value to this attribute will
-		force a rescan of all PCI buses in the system, and
+		Writing "1", "y", or "on" to this attribute will force
+		a rescan of all PCI buses in the system, and
 		re-discover previously removed devices.
 
 What:		/sys/bus/pci/devices/.../msi_bus
 Date:		September 2014
 Contact:	Linux PCI developers <linux-pci@vger.kernel.org>
 Description:
-		Writing a zero value to this attribute disallows MSI and
+		Writing "0", "n", or "off" to this attribute disallows MSI and
 		MSI-X for any future drivers of the device.  If the device
 		is a bridge, MSI and MSI-X will be disallowed for future
 		drivers of all child devices under the bridge.  Drivers
@@ -115,14 +115,14 @@ What:		/sys/bus/pci/devices/.../remove
 Date:		January 2009
 Contact:	Linux PCI developers <linux-pci@vger.kernel.org>
 Description:
-		Writing a non-zero value to this attribute will
+		Writing "1", "y", or "on" to this attribute will
 		hot-remove the PCI device and any of its children.
 
 What:		/sys/bus/pci/devices/.../pci_bus/.../rescan
 Date:		May 2011
 Contact:	Linux PCI developers <linux-pci@vger.kernel.org>
 Description:
-		Writing a non-zero value to this attribute will
+		Writing "1", "y", or "on" to this attribute will
 		force a rescan of the bus and all child buses,
 		and re-discover devices removed earlier from this
 		part of the device tree.
@@ -131,7 +131,7 @@ What:		/sys/bus/pci/devices/.../rescan
 Date:		January 2009
 Contact:	Linux PCI developers <linux-pci@vger.kernel.org>
 Description:
-		Writing a non-zero value to this attribute will
+		Writing "1", "y", or "on" to this attribute will
 		force a rescan of the device's parent bus and all
 		child buses, and re-discover devices removed earlier
 		from this part of the device tree.
@@ -160,8 +160,8 @@ Description:
 		Some devices allow an individual function to be reset
 		without affecting other functions in the same device.
 		For devices that have this support, a file named reset
-		will be present in sysfs.  Writing 1 to this file
-		will perform reset.
+		will be present in sysfs.  Writing "1", "y", or "on"
+		to this file will perform reset.
 
 What:		/sys/bus/pci/devices/.../reset_subordinate
 Date:		October 2024
@@ -169,10 +169,10 @@ Contact:	linux-pci@vger.kernel.org
 Description:
 		This is visible only for bridge devices. If you want to reset
 		all devices attached through the subordinate bus of a specific
-		bridge device, writing 1 to this will try to do it.  This will
-		affect all devices attached to the system through this bridge
-		similiar to writing 1 to their individual "reset" file, so use
-		with caution.
+		bridge device, writing "1", "y", or "on" to this will try to
+		do it.  This will affect all devices attached to the system
+		through this bridge similar to writing to their individual
+		"reset" file, so use with caution.
 
 What:		/sys/bus/pci/devices/.../vpd
 Date:		February 2008
@@ -182,7 +182,7 @@ Description:
 		binary file containing the Vital Product Data for the
 		device.  It should follow the VPD format defined in
 		PCI Specification 2.1 or 2.2, but users should consider
-		that some devices may have incorrectly formatted data.  
+		that some devices may have incorrectly formatted data.
 		If the underlying VPD has a writable section then the
 		corresponding section of this file will be writable.
 
@@ -439,7 +439,8 @@ Date:		October 2019
 Contact:	Heiner Kallweit <hkallweit1@gmail.com>
 Description:	If ASPM is supported for an endpoint, these files can be
 		used to disable or enable the individual power management
-		states. Write y/1/on to enable, n/0/off to disable.
+		states. Write "1", "y", or "on" to enable, "0", "n",
+		or "off" to disable.
 
 What:		/sys/bus/pci/devices/.../power_state
 Date:		November 2020
