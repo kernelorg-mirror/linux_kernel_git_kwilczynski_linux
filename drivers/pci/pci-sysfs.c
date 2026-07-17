@@ -1239,16 +1239,16 @@ static loff_t pci_llseek_resource(struct file *filep,
  * attribute, it's not going to work, so override it as well.
  */
 #if arch_can_pci_mmap_io()
-# define __PCI_RESOURCE_IO_MMAP_ATTRS		\
-	.f_mapping = iomem_get_mapping,		\
-	.llseek = pci_llseek_resource,		\
+# define __PCI_RESOURCE_IO_MMAP_ATTRS	\
+	.f_mapping = iomem_get_mapping,	\
+	.llseek = pci_llseek_resource,	\
 	.mmap = pci_mmap_resource_uc,
 #else
 # define __PCI_RESOURCE_IO_MMAP_ATTRS
 #endif
 
 #define pci_dev_resource_io_attr(_bar)					\
-static const struct bin_attribute dev_resource##_bar##_io_attr = {	\
+static const struct bin_attribute pci_dev_resource##_bar##_io_attr = {	\
 	.attr = { .name = "resource" __stringify(_bar), .mode = 0600 },	\
 	.private = (void *)(unsigned long)(_bar),			\
 	.read = pci_read_resource,					\
@@ -1257,7 +1257,7 @@ static const struct bin_attribute dev_resource##_bar##_io_attr = {	\
 }
 
 #define pci_dev_resource_uc_attr(_bar)					\
-static const struct bin_attribute dev_resource##_bar##_uc_attr = {	\
+static const struct bin_attribute pci_dev_resource##_bar##_uc_attr = {	\
 	.attr = { .name = "resource" __stringify(_bar), .mode = 0600 },	\
 	.private = (void *)(unsigned long)(_bar),			\
 	.f_mapping = iomem_get_mapping,					\
@@ -1265,13 +1265,13 @@ static const struct bin_attribute dev_resource##_bar##_uc_attr = {	\
 	.mmap = pci_mmap_resource_uc,					\
 }
 
-#define pci_dev_resource_wc_attr(_bar)					      \
-static const struct bin_attribute dev_resource##_bar##_wc_attr = {	      \
-	.attr = { .name = "resource" __stringify(_bar) "_wc", .mode = 0600 }, \
-	.private = (void *)(unsigned long)(_bar),			      \
-	.f_mapping = iomem_get_mapping,					      \
-	.llseek = pci_llseek_resource,					      \
-	.mmap = pci_mmap_resource_wc,					      \
+#define pci_dev_resource_wc_attr(_bar)						\
+static const struct bin_attribute pci_dev_resource##_bar##_wc_attr = {		\
+	.attr = { .name = "resource" __stringify(_bar) "_wc", .mode = 0600 },	\
+	.private = (void *)(unsigned long)(_bar),				\
+	.f_mapping = iomem_get_mapping,						\
+	.llseek = pci_llseek_resource,						\
+	.mmap = pci_mmap_resource_wc,						\
 }
 
 static inline umode_t
@@ -1352,32 +1352,32 @@ pci_dev_resource_wc_attr(4);
 pci_dev_resource_wc_attr(5);
 
 static const struct bin_attribute *const pci_dev_resource_io_attrs[] = {
-	&dev_resource0_io_attr,
-	&dev_resource1_io_attr,
-	&dev_resource2_io_attr,
-	&dev_resource3_io_attr,
-	&dev_resource4_io_attr,
-	&dev_resource5_io_attr,
+	&pci_dev_resource0_io_attr,
+	&pci_dev_resource1_io_attr,
+	&pci_dev_resource2_io_attr,
+	&pci_dev_resource3_io_attr,
+	&pci_dev_resource4_io_attr,
+	&pci_dev_resource5_io_attr,
 	NULL,
 };
 
 static const struct bin_attribute *const pci_dev_resource_uc_attrs[] = {
-	&dev_resource0_uc_attr,
-	&dev_resource1_uc_attr,
-	&dev_resource2_uc_attr,
-	&dev_resource3_uc_attr,
-	&dev_resource4_uc_attr,
-	&dev_resource5_uc_attr,
+	&pci_dev_resource0_uc_attr,
+	&pci_dev_resource1_uc_attr,
+	&pci_dev_resource2_uc_attr,
+	&pci_dev_resource3_uc_attr,
+	&pci_dev_resource4_uc_attr,
+	&pci_dev_resource5_uc_attr,
 	NULL,
 };
 
 static const struct bin_attribute *const pci_dev_resource_wc_attrs[] = {
-	&dev_resource0_wc_attr,
-	&dev_resource1_wc_attr,
-	&dev_resource2_wc_attr,
-	&dev_resource3_wc_attr,
-	&dev_resource4_wc_attr,
-	&dev_resource5_wc_attr,
+	&pci_dev_resource0_wc_attr,
+	&pci_dev_resource1_wc_attr,
+	&pci_dev_resource2_wc_attr,
+	&pci_dev_resource3_wc_attr,
+	&pci_dev_resource4_wc_attr,
+	&pci_dev_resource5_wc_attr,
 	NULL,
 };
 
